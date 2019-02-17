@@ -27,6 +27,21 @@ services:
       DATABASE_PASSWORD: "somepassword"
       ADMIN_EMAIL: "admin@localhost.com"
       ADMIN_PASSWORD: "directusrocks"
+
+      # The following settings are useful, if you want to change the file size limit of directus. 
+      # If you don't want to set these values here but rather mount a php.ini file, just delete those variables.
+      # The values below are the default settings.
+
+      # Nginx settings
+      CLIENT_MAX_BODY_SIZE: 100M
+
+      # php settings
+      UPLOAD_MAX_FILESIZE: 2M
+      POST_MAX_SIZE: 8M
+      MEMORY_LIMIT: 128M
+      MAX_INPUT_TIME: 60
+      MAX_EXECUTION_TIME: 30
+
     ports:
       - 7000:80
 

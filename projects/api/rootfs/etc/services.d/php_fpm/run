@@ -1,5 +1,35 @@
 #!/usr/bin/with-contenv sh
 set -e;
 
+
+# Apply some environment variables if they are set
+
+# set maximum upload file size (default is 2M)
+if ! [[ -z "${UPLOAD_MAX_FILESIZE}" ]]; then
+  sed -i "s/upload_max_filesize =.*/upload_max_filesize = ${UPLOAD_MAX_FILESIZE}/g" /etc/php7/php.ini
+fi
+
+# set maximum post size (default is 8M).
+if ! [[ -z "${POST_MAX_SIZE}" ]]; then
+  sed -i "s/post_max_size =.*/post_max_size = ${POST_MAX_SIZE}/g" /etc/php7/php.ini
+fi
+
+# set memory limit (default is 128M).
+if ! [[ -z "${MEMORY_LIMIT}" ]]; then
+  sed -i "s/memory_limit =.*/memory_limit = ${MEMORY_LIMIT}/g" /etc/php7/php.ini
+fi
+
+# set max_input_time in seconds (default is 60).
+if ! [[ -z "${MAX_INPUT_TIME}" ]]; then
+  sed -i "s/max_input_time =.*/max_input_time = ${MAX_INPUT_TIME}/g" /etc/php7/php.ini
+fi
+
+# set max_execution_time in seconds (default is 30).
+if ! [[ -z "${MAX_EXECUTION_TIME}" ]]; then
+  sed -i "s/max_execution_time =.*/max_execution_time = ${MAX_EXECUTION_TIME}/g" /etc/php7/php.ini
+fi
+
+
+
 # Start PHP-FPM
 exec /usr/sbin/php-fpm7 -R --nodaemonize
